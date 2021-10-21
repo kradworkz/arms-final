@@ -13,16 +13,16 @@
                         <div class="p-2 mt-4">
                             <h4>{{alert.event.device.station }}</h4>
                             <p class="mb-0">{{alert.event.device.address }}</p>
-                            <span class="text-muted font-size-11">{{alert.event.device.type.name }}</span>
+                            <span class="text-muted font-size-11">{{ alert.event.device.type.name }}</span>
                             <hr>
                             <div class="row text-primary font-weight-bold">
                                 <div class="col-sm-3">
                                     <h6 class="font-size-12"><i class="bx bx-barcode-reader mr-1 text-primary"></i> Accelerometer</h6> 
-                                    <p class="mb-0">{{alert.event.aa.Accelerometer }}</p>
+                                    <p class="mb-0">{{ parseFloat(alert.event.aa.Accelerometer).toFixed(2) }}</p>
                                 </div> 
                                 <div class="col-sm-3">
                                     <h6 class="font-size-12"><i class="bx bx-code mr-1 text-primary"></i>Gyro</h6>
-                                    <p class="mb-0">{{alert.event.aa.Gyro }}</p>
+                                    <p class="mb-0">{{  parseFloat(alert.event.aa.Gyro).toFixed(2) }}</p>
                                 </div>
                                  <div class="col-sm-3">
                                     <h6 class="font-size-12"><i class="bx bx-water mr-1 text-primary"></i> Soil Moisture</h6> 

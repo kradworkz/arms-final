@@ -66341,7 +66341,13 @@ var render = function() {
                       _vm._m(0),
                       _vm._v(" "),
                       _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.alert.event.aa.Accelerometer))
+                        _vm._v(
+                          _vm._s(
+                            parseFloat(
+                              _vm.alert.event.aa.Accelerometer
+                            ).toFixed(2)
+                          )
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -66349,7 +66355,9 @@ var render = function() {
                       _vm._m(1),
                       _vm._v(" "),
                       _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.alert.event.aa.Gyro))
+                        _vm._v(
+                          _vm._s(parseFloat(_vm.alert.event.aa.Gyro).toFixed(2))
+                        )
                       ])
                     ]),
                     _vm._v(" "),
