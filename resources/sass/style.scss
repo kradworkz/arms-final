@@ -1,0 +1,157 @@
+@import '/assets/css/bootstrap.min.css';
+@import '/assets/css/app.min.css';
+@import '/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css';
+
+.haveerror {
+	color: red;
+	font-size: 9px;
+}
+
+.fuzone {
+    position: relative;
+    border: 2px dashed #eee;
+    border-radius: 3px;
+    background: #f9f9f9;
+    transition: all 0.3s linear;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    // display: inline-block;
+    width: 100%;
+    min-height: 150px;
+    margin-top: 20px;
+    float: left;
+    cursor: pointer;
+}
+
+.fuzone input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.fuzone .fu-text {
+    text-align: center;
+    margin: 120px 0;
+    font-size: 12px;
+    color: #98AAB8;
+    position: relative;
+}
+
+.fuzone .fu-text i {
+    font-size: 54px;
+    width: 100%;
+    padding-bottom: 10px;
+    transition: all 0.3s linear;
+}
+
+
+.multiselect__tags {
+    min-height: calc(1.5em + 0.94rem + 2px) !important;
+    padding: 0.47rem 0.75rem !important;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 0.8125rem;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+    background-color: #fff !important;
+    background-clip: padding-box;
+    border: 1px solid #ced4da !important;
+  }
+  
+  .multiselect__placeholder {
+    padding-top: 0 !important;
+    margin-bottom: 0 !important;
+    color: #ced4da !important;
+  }
+  
+  .multiselect__input {
+    margin-bottom: 0 !important;
+  }
+  
+  .multiselect__single {
+    padding-left: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .multiselect__tag {
+    background-color: #556ee6 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .multiselect__tag-icon:after {
+    color: #f8f9fa !important;
+  }
+  
+  .multiselect,
+  .multiselect__input,
+  .multiselect__single {
+    font-size: 13px !important;
+  }
+  
+  .multiselect__input,
+  .multiselect__single {
+    background-color: #fff !important;
+  }
+  
+  .multiselect__content-wrapper {
+    background-color: #fff !important;
+    border: 1px solid #ced4da !important;
+  }
+  
+  .mx-input::-moz-placeholder {
+    color: #74788d;
+  }
+  
+  .mx-input:-ms-input-placeholder {
+    color: #74788d;
+  }
+  
+  .mx-input::placeholder {
+    color: #74788d;
+  }
+  
+  .multiselect__input,
+  .mx-calendar-icon,
+  .mx-datepicker-btn-confirm,
+  .multiselect__option {
+    color: #495057 !important;
+  }
+  
+  .multiselect__option--highlight,
+  .multiselect__option--highlight:after {
+    background: #556ee6 !important;
+    color: #fff !important;
+  }
+
+  .customerform{
+    margin-top: -5px;
+    margin-bottom: -5px;
+  }
+
+  .customerform label {
+    margin-bottom: -10px;
+  }
+
+  .tablecenter th td{
+    text-align: center !important;
+  }
+
+  .mail-list a {
+    cursor: pointer;
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  a.disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: .5;
+  }
+ 
