@@ -23,7 +23,7 @@ class ChirpstackController extends Controller
         $obj = json_decode($json);
         $binary = base64_decode($obj->devEUI);
         $devicename = $obj->deviceName;
-        $tracker_id = $obj->devEUI; //bin2hex($binary);
+        $tracker_id = bin2hex($binary);
         $decoded = json_encode($obj->objectJSON);
         $a = \json_decode($decoded);
         $aa = \json_decode($a);
