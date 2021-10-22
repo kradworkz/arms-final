@@ -75,14 +75,6 @@ export default {
         listenForNewEvent(){
             Echo.join('public-channel')
             .listen('NotifyEvent', (data) => {
-                if(data.event.Gyro > .30 && data.event.Gyro < 1){
-                    var audio = document.getElementById("level1");
-                }else if(data.event.Gyro > 1 && data.event.Gyro < 2){
-                    var audio = document.getElementById("level2");
-                }else{
-                    var audio = document.getElementById("level3");
-                }
-                audio.play();
                 this.alerts.unshift(data);
             });
         },

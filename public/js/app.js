@@ -3285,16 +3285,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       Echo.join('public-channel').listen('NotifyEvent', function (data) {
-        if (data.event.Gyro > .30 && data.event.Gyro < 1) {
-          var audio = document.getElementById("level1");
-        } else if (data.event.Gyro > 1 && data.event.Gyro < 2) {
-          var audio = document.getElementById("level2");
-        } else {
-          var audio = document.getElementById("level3");
-        }
-
-        audio.play();
-
         _this.alerts.unshift(data);
       });
     },
@@ -7578,6 +7568,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7594,23 +7597,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.events.unshift(data);
       });
     },
-    listenForNewEvent2: function listenForNewEvent2() {
-      Echo.join('public-channel').listen('NotifyEvent', function (data) {
-        if (data.event.Gyro > .30 && data.event.Gyro < 1) {
-          var audio = document.getElementById("level1");
-        } else if (data.event.Gyro > 1 && data.event.Gyro < 2) {
-          var audio = document.getElementById("level2");
-        } else {
-          var audio = document.getElementById("level3");
-        }
-
-        audio.play();
-      });
-    },
     fetch: function fetch(id) {
       this.events = [];
       this.listenForNewEvent();
-      this.listenForNewEvent2();
     }
   }
 });
@@ -74919,38 +74908,95 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-body" }, [
-              _c(
-                "div",
-                { staticClass: "col-md-12" },
-                [
-                  _c(
-                    "center",
-                    {
-                      staticStyle: {
-                        "margin-top": "30px",
-                        "margin-bottom": "30px"
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "bx bx-loader bx-flashing bx-rotate-180",
-                        staticStyle: { "font-size": "100px" }
-                      })
-                    ]
-                  ),
-                  _vm._v(
-                    "\n\n                     " +
-                      _vm._s(_vm.events) +
-                      "\n\n                     "
-                  ),
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _vm._m(3)
-                ],
-                1
-              )
+              _c("div", { staticClass: "col-md-12" }, [
+                _vm.events.length < 1
+                  ? _c(
+                      "div",
+                      [
+                        _c(
+                          "center",
+                          {
+                            staticStyle: {
+                              "margin-top": "30px",
+                              "margin-bottom": "30px"
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "bx bx-loader bx-flashing bx-rotate-180",
+                              staticStyle: { "font-size": "100px" }
+                            })
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _c("div", { staticClass: "table-responsive" }, [
+                      _c(
+                        "table",
+                        {
+                          staticClass: "table table-centered table-nowrap mb-0"
+                        },
+                        [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.events, function(event, index) {
+                              return _c(
+                                "tr",
+                                {
+                                  key: index,
+                                  class:
+                                    "text-center font-size-11 bg-soft-" +
+                                    event.event.setting.color
+                                },
+                                [
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        parseFloat(
+                                          event.event.aa.Accelerometer
+                                        ).toFixed(2)
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        parseFloat(event.event.aa.Gyro).toFixed(
+                                          2
+                                        )
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(event.event.aa.SoilMoisture))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(event.event.aa.Temperature))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "span",
+                                      { staticClass: "badge badge-primary" },
+                                      [_vm._v(_vm._s(event.event.setting.date))]
+                                    )
+                                  ])
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ]
+                      )
+                    ])
+              ])
             ])
           ]
         )
@@ -74988,30 +75034,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("audio", { attrs: { id: "level1" } }, [
-      _c("source", {
-        attrs: { src: "assets/musics/alert1.mp3", type: "audio/mp3" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("audio", { attrs: { id: "level2" } }, [
-      _c("source", {
-        attrs: { src: "assets/musics/alert2.mp3", type: "audio/mp3" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("audio", { attrs: { id: "level3" } }, [
-      _c("source", {
-        attrs: { src: "assets/musics/alert3.mp3", type: "audio/mp3" }
-      })
+    return _c("thead", { staticClass: "thead-light font-size-11" }, [
+      _c("tr", { staticClass: "text-center" }, [
+        _c("th", [_vm._v("Accelerometer")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Gyro")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Soil Moisture")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Temperature")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date")])
+      ])
     ])
   }
 ]

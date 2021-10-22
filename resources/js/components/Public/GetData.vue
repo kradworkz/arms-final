@@ -11,21 +11,34 @@
             <form @submit.prevent="setcoordinates">
                 <div class="modal-body">
                     <div class="col-md-12">
-                        <center style="margin-top: 30px; margin-bottom: 30px;">
-                            <i class='bx bx-loader bx-flashing bx-rotate-180' style="font-size: 100px;"></i>
-                        </center>
+                        <div v-if="events.length < 1">
+                            <center style="margin-top: 30px; margin-bottom: 30px;">
+                                <i class='bx bx-loader bx-flashing bx-rotate-180' style="font-size: 100px;"></i>
+                            </center>
+                        </div>
+                        <div v-else class="table-responsive">
+                            <table class="table table-centered table-nowrap mb-0">
+                                <thead class="thead-light font-size-11">
+                                    <tr class="text-center">
+                                        <th>Accelerometer</th>
+                                        <th>Gyro</th>
+                                        <th>Soil Moisture</th>
+                                        <th>Temperature</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(event,index) in events" v-bind:key="index" :class="'text-center font-size-11 bg-soft-'+event.event.setting.color">
+                                        <td>{{parseFloat(event.event.aa.Accelerometer).toFixed(2) }}</td>
+                                        <td>{{parseFloat(event.event.aa.Gyro).toFixed(2) }}</td>
+                                        <td>{{event.event.aa.SoilMoisture }}</td>
+                                        <td>{{event.event.aa.Temperature }}</td>
+                                        <td><span class="badge badge-primary">{{event.event.setting.date}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-                        {{ events}}
-
-                        <audio id="level1">
-                            <source src="assets/musics/alert1.mp3" type="audio/mp3">
-                        </audio>
-                        <audio id="level2">
-                            <source src="assets/musics/alert2.mp3" type="audio/mp3">
-                        </audio>
-                         <audio id="level3">
-                            <source src="assets/musics/alert3.mp3" type="audio/mp3">
-                        </audio>
                     </div>
                 </div>
             </form>
@@ -51,25 +64,10 @@
                     this.events.unshift(data);
                 });
             },
-             listenForNewEvent2(){
-                Echo.join('public-channel')
-                .listen('NotifyEvent', (data) => {
-                    if(data.event.Gyro > .30 && data.event.Gyro < 1){
-                        var audio = document.getElementById("level1");
-                    }else if(data.event.Gyro > 1 && data.event.Gyro < 2){
-                        var audio = document.getElementById("level2");
-                    }else{
-                        var audio = document.getElementById("level3");
-                    }
-                    audio.play();
-                });
-            },
-
 
             fetch(id){
                 this.events = [];
                 this.listenForNewEvent();
-                this.listenForNewEvent2();
             },
             
         }

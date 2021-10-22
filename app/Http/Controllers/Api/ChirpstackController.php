@@ -105,7 +105,7 @@ class ChirpstackController extends Controller
             'aa' => $aa,
             'setting' => $settings
         ];
-        broadcast(new NotifyEvent($arr));
+        broadcast(new SlewsEvent($arr));
     }
 
     public function arms($aa,$tracker_id){
