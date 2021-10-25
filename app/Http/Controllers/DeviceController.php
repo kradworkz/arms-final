@@ -44,7 +44,7 @@ class DeviceController extends Controller
 
     
     public function logs($code){
-        $data = DeviceLog::where('code',$code)->get();
+        $data = DeviceLog::where('code',$code)->orderBy('created_at','DESC')->get();
         return DatalogResource::collection($data);
     }
 }
