@@ -66,7 +66,11 @@
             },
 
             fetch(id){
-                this.events = [];
+                axios.get(this.currentUrl + '/request/datalogs/b02fd62ef52074de')
+                .then(response => {
+                    this.events = response.data.data;
+                    console.log( JSON.parse(this.events[0].event.setting))
+                })
                 this.listenForNewEvent();
             },
             

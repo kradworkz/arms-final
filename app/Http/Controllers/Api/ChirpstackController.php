@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Device;
 use App\Models\DeviceData;
+use App\Models\DeviceLog;
 use App\Models\AssetList;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -105,7 +106,21 @@ class ChirpstackController extends Controller
             'aa' => $aa,
             'setting' => $settings
         ];
+
+        if($aa->Flag == 1){
+            $this->logs($tracker_id,$arr);
+        }
+
         broadcast(new SlewsEvent($arr));
+    }
+
+    public function logs($tracker_id,$arr){
+        $data = new DeviceLog;
+        $data->code = $tracker_id;
+        $data->event = json_encode($arr);
+        $data->save();
+
+        return true;
     }
 
     public function arms($aa,$tracker_id){

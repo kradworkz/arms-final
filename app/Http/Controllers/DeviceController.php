@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Models\DeviceLog;
 use Illuminate\Http\Request;
+use App\Http\Resources\DefaultResource;
+use App\Http\Resources\DatalogResource;
 use App\Http\Resources\DeviceResource;
 use App\Http\Requests\DeviceRequest;
 
@@ -37,5 +40,11 @@ class DeviceController extends Controller
         }
 
         return new DeviceResource($data);
+    }
+
+    
+    public function logs($code){
+        $data = DeviceLog::where('code',$code)->get();
+        return DatalogResource::collection($data);
     }
 }

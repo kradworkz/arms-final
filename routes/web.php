@@ -47,6 +47,8 @@ Route::middleware(['role:Member','auth'])->group(function () {
 
 Route::prefix('request')->group(function () {
 
+    Route::get('/datalogs/{code}', 'DeviceController@logs');
+
     Route::get('/dropdown/{classification}/{type}/{keyword}', 'DropdownController@index');
     Route::get('/dropdowns/{classification}/{type}', 'DropdownController@lists');
     Route::get('/dropdowncount/{classification}/{type}', 'DropdownController@count');

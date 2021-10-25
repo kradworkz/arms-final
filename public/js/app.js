@@ -7598,7 +7598,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     fetch: function fetch(id) {
-      this.events = [];
+      var _this2 = this;
+
+      axios.get(this.currentUrl + '/request/datalogs/b02fd62ef52074de').then(function (response) {
+        _this2.events = response.data.data;
+        console.log(JSON.parse(_this2.events[0].event.setting));
+      });
       this.listenForNewEvent();
     }
   }
