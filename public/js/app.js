@@ -7532,6 +7532,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vue_apexcharts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-apexcharts */ "./node_modules/vue-apexcharts/dist/vue-apexcharts.js");
+/* harmony import */ var vue_apexcharts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_apexcharts__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -7581,12 +7583,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       currentUrl: window.location.origin,
       errors: [],
-      events: []
+      events: [],
+      series: [{
+        data: []
+      }],
+      chartOptions: {
+        chart: {
+          id: 'area-datetime',
+          type: 'area',
+          height: 350,
+          zoom: {
+            autoScaleYaxis: true
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        markers: {
+          size: 0,
+          style: 'hollow'
+        },
+        xaxis: {
+          type: 'datetime',
+          min: new Date('01 May 2021').getTime(),
+          tickAmount: 6
+        },
+        tooltip: {
+          x: {
+            format: 'dd MMM yyyy'
+          }
+        },
+        stroke: {
+          width: 1.5
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 100]
+          }
+        }
+      },
+      selection: 'todayss',
+      year: new Date().getFullYear(),
+      month: '',
+      week: '',
+      showyear: false,
+      showmonth: false,
+      showweek: false,
+      type: 'Monthly'
     };
   },
   methods: {
@@ -7597,15 +7653,26 @@ __webpack_require__.r(__webpack_exports__);
         _this.events.unshift(data);
       });
     },
+    updateSeriesLine: function updateSeriesLine(gyro) {
+      this.$refs.packets.updateSeries([{
+        data: this.series[0].data
+      }], false, true);
+    },
     fetch: function fetch(id) {
       var _this2 = this;
 
       axios.get(this.currentUrl + '/request/datalogs/b02fd62ef52074de').then(function (response) {
-        _this2.events = response.data.data;
-        console.log(JSON.parse(_this2.events[0].event.setting));
+        _this2.series[0].data = response.data.data;
+
+        _this2.updateSeriesLine(); // this.events = response.data.data;
+        // console.log( JSON.parse(this.events[0].event.setting))
+
       });
       this.listenForNewEvent();
     }
+  },
+  components: {
+    apexchart: (vue_apexcharts__WEBPACK_IMPORTED_MODULE_0___default())
   }
 });
 
@@ -74913,95 +74980,22 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-body" }, [
-              _c("div", { staticClass: "col-md-12" }, [
-                _vm.events.length < 1
-                  ? _c(
-                      "div",
-                      [
-                        _c(
-                          "center",
-                          {
-                            staticStyle: {
-                              "margin-top": "30px",
-                              "margin-bottom": "30px"
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass:
-                                "bx bx-loader bx-flashing bx-rotate-180",
-                              staticStyle: { "font-size": "100px" }
-                            })
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  : _c("div", { staticClass: "table-responsive" }, [
-                      _c(
-                        "table",
-                        {
-                          staticClass: "table table-centered table-nowrap mb-0"
-                        },
-                        [
-                          _vm._m(1),
-                          _vm._v(" "),
-                          _c(
-                            "tbody",
-                            _vm._l(_vm.events, function(event, index) {
-                              return _c(
-                                "tr",
-                                {
-                                  key: index,
-                                  class:
-                                    "text-center font-size-11 bg-soft-" +
-                                    event.event.setting.color
-                                },
-                                [
-                                  _c("td", [
-                                    _vm._v(
-                                      _vm._s(
-                                        parseFloat(
-                                          event.event.aa.Accelerometer
-                                        ).toFixed(2)
-                                      )
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      _vm._s(
-                                        parseFloat(event.event.aa.Gyro).toFixed(
-                                          2
-                                        )
-                                      )
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(event.event.aa.SoilMoisture))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(event.event.aa.Temperature))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "span",
-                                      { staticClass: "badge badge-primary" },
-                                      [_vm._v(_vm._s(event.event.setting.date))]
-                                    )
-                                  ])
-                                ]
-                              )
-                            }),
-                            0
-                          )
-                        ]
-                      )
-                    ])
-              ])
+              _c(
+                "div",
+                { staticClass: "col-md-12" },
+                [
+                  _c("apexchart", {
+                    ref: "packets",
+                    staticClass: "mt-4",
+                    attrs: {
+                      height: "240",
+                      options: _vm.chartOptions,
+                      series: _vm.series
+                    }
+                  })
+                ],
+                1
+              )
             ])
           ]
         )
@@ -75033,24 +75027,6 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light font-size-11" }, [
-      _c("tr", { staticClass: "text-center" }, [
-        _c("th", [_vm._v("Accelerometer")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Gyro")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Soil Moisture")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Temperature")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date")])
-      ])
     ])
   }
 ]

@@ -14,10 +14,13 @@ class DatalogResource extends JsonResource
      */
     public function toArray($request)
     {
+        $event = json_decode($this->event);
         return [
             'id' => $this->id,
             'code' => $this->code,
-            'event' => json_decode($this->event),
+            'event' => $event,
+            'x' => $event->setting->date,
+            'y' => $event->aa->Gyro
         ];
     }
 }

@@ -11,7 +11,9 @@
             <form @submit.prevent="setcoordinates">
                 <div class="modal-body">
                     <div class="col-md-12">
-                        <div v-if="events.length < 1">
+
+                     <apexchart class="mt-4" height="240" :options="chartOptions" :series="series" ref="packets"></apexchart>
+                        <!--<div v-if="events.length < 1">
                             <center style="margin-top: 30px; margin-bottom: 30px;">
                                 <i class='bx bx-loader bx-flashing bx-rotate-180' style="font-size: 100px;"></i>
                             </center>
@@ -38,6 +40,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        -->
 
                     </div>
                 </div>
@@ -48,12 +51,63 @@
 </template>
 
 <script>
+    import VueApexCharts from 'vue-apexcharts';
     export default {
         data(){
             return {
                 currentUrl: window.location.origin,
                 errors: [], 
                 events: [],
+                series: [{
+                    data: [],
+                }],
+                chartOptions: {
+                    chart: {
+                        id: 'area-datetime',
+                        type: 'area',
+                        height: 350,
+                        zoom: {
+                            autoScaleYaxis: true
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    markers: {
+                        size: 0,
+                        style: 'hollow',
+                    },
+                    xaxis: {
+                        type: 'datetime',
+                        min: new Date('01 May 2021').getTime(),
+                        tickAmount: 6,
+                    },
+                    tooltip: {
+                        x: {
+                            format: 'dd MMM yyyy'
+                        }
+                    },
+                    stroke: {
+                        width: 1.5
+                    },
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.7,
+                            opacityTo: 0.9,
+                            stops: [0, 100]
+                        }
+                    },
+                }, 
+                selection: 'todayss',
+                year: new Date().getFullYear(),
+                month: '',
+                week: '',
+                showyear: false,
+                showmonth: false,
+                showweek: false,
+                type: 'Monthly'
             }
         },
 
@@ -65,15 +119,23 @@
                 });
             },
 
+            updateSeriesLine(gyro) {
+                this.$refs.packets.updateSeries([{
+                    data: this.series[0].data,
+                }], false, true);
+            },
+
             fetch(id){
                 axios.get(this.currentUrl + '/request/datalogs/b02fd62ef52074de')
                 .then(response => {
-                    this.events = response.data.data;
-                    console.log( JSON.parse(this.events[0].event.setting))
+                    this.series[0].data = response.data.data;
+                    this.updateSeriesLine();
+                    // this.events = response.data.data;
+                    // console.log( JSON.parse(this.events[0].event.setting))
                 })
                 this.listenForNewEvent();
             },
             
-        }
+        },  components: { apexchart: VueApexCharts }
     }
 </script>
